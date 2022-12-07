@@ -8,6 +8,7 @@ const app = express();
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
+const chatRouter = require('./routes/chat');
 // const { urlencoded } = require('express');
 
 app.use(cors());
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
+app.use('/chat', chatRouter);
 
 app.listen(PORT, () => {
   console.log(`서버는 ${PORT}번에서 실행중입니다.`);

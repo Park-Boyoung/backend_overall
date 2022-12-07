@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>웹 소켓 통신 테스트</title>
+</head>
+
+<body>
+  <input type="text" id="msg">
+  <a href="javascript:void(0)" onclick="send()">전송</a>
+  <ol id="chat"></ol>
+</body>
+
+<script>
+  // 웹 소켓 전역 객체 생성
+  const ws = new WebSocket("ws://localhost:3000");
+
+  const inputEl = document.getElementById('msg');
+  const chat = document.getElementById('chat');
+
+  function send() {
+    const msg = inputEl.value;
+    ws.send(msg);
+    inputEl.value = '';
+  }
+
+  // 연결되면 서버에 메세지를 보낸다
+  // ws.onopen = function(event) {
+  //   ws.send("저는 클라이언트입니다. 안녕하세요!");
+  // }
+
+  // 서버로부터 메세지를 받는다
+  ws.onmessage = function(event) {
+    const msgEl = document.createElement('li');
+    msgEl.innerHTML = event.data;
+    chat.appendChild(msgEl);
+    // console.log(`서버로부터 온 메세지:${event.data}`);
+  }
+
+  // 에러 시 띄우는 메세지
+  ws.onerror = function(event) {
+    console.log(`에러 메세지:${event.data}`);
+  }
+</script>
+
+</html>
