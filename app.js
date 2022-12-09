@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
 
-const PORT = 4000;
+const PORT = 8000;
 const app = express();
 
 const indexRouter = require('./routes/index');
